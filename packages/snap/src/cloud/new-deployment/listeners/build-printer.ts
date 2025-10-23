@@ -1,6 +1,6 @@
-import { Step } from '@motiadev/core'
+import type { Step } from '@motiadev/core'
 import { Printer } from '@motiadev/core/dist/src/printer'
-import { Stream } from '@motiadev/core/dist/src/types-stream'
+import type { Stream } from '@motiadev/core/dist/src/types-stream'
 import colors from 'colors'
 import { CLIOutputManager } from '../../cli-output-manager'
 import { prettyBytes } from '../utils/pretty-bytes'
@@ -26,6 +26,8 @@ export class BuildPrinter {
       return colors.bold(colors.green('Node'))
     } else if (language === 'ruby') {
       return colors.bold(colors.red('Ruby'))
+    } else if (language === 'csharp') {
+      return colors.bold(colors.magenta('C#'))
     }
 
     return colors.bold(colors.gray('Unknown'))
@@ -38,6 +40,8 @@ export class BuildPrinter {
       return this.getLanguage('node')
     } else if (step.filePath.endsWith('.rb')) {
       return this.getLanguage('ruby')
+    } else if (step.filePath.endsWith('.cs')) {
+      return this.getLanguage('csharp')
     }
 
     return this.getLanguage('unknown')

@@ -15,6 +15,8 @@ declare module 'motia' {
   interface Handlers {
     'TestStateCheck': EventHandler<{ key: string; expected?: unknown }, never>
     'TestStateApiTrigger': ApiRouteHandler<{}, unknown, { topic: 'test-state-python'; data: unknown }>
+    'Download PDF': ApiRouteHandler<Record<string, unknown>, ApiResponse<200, unknown>, never>
+    'Download HTML': ApiRouteHandler<Record<string, unknown>, ApiResponse<200, unknown>, never>
     'stepA': EventHandler<{}, { topic: 'pms.stepA.done'; data: { msg: string; timestamp: number } }>
     'Parallel Merge': ApiRouteHandler<Record<string, unknown>, unknown, { topic: 'pms.start'; data: {} }>
     'join-step': EventHandler<{ msg: string; timestamp: number }, { topic: 'pms.join.complete'; data: { stepA: { msg: string; timestamp: number }; stepB: unknown; stepC: unknown; mergedAt: string } }>
@@ -28,10 +30,14 @@ declare module 'motia' {
     'Notification': EventHandler<{ templateId: string; email: string; templateData: Record<string, unknown> }, never>
     'ApiTrigger': ApiRouteHandler<{ pet: { name: string; photoUrl: string }; foodOrder?: { id: string; quantity: number } }, ApiResponse<200, { id: number; name: string; photoUrl: string }>, { topic: 'process-food-order'; data: { email: string; quantity: number; petId: number } }>
     'ArrayStep': ApiRouteHandler<Array<{ pet: { name: string; photoUrl: string }; foodOrder?: { id: string; quantity: number } }>, ApiResponse<200, Array<{ id: number; name: string; photoUrl: string }>>, { topic: 'process-food-order'; data: { email: string; quantity: number; petId: number } }>
+    'RubyApiStep': ApiRouteHandler<{ rbMessage: string }, ApiResponse<200, { rbResponse: string }>, never>
     'Test State With Python': EventHandler<unknown, { topic: 'test-state-check'; data: { key: string; expected?: unknown } }>
     'Tested Event': EventHandler<never, never>
     'Test Event': EventHandler<never, { topic: 'tested'; data: never }>
     'Test API Endpoint': ApiRouteHandler<Record<string, unknown>, unknown, { topic: 'test'; data: never }>
+    'Tested Event CSharp': EventHandler<never, never>
+    'Test Event CSharp': EventHandler<never, { topic: 'tested.csharp'; data: never }>
+    'Test API Endpoint CSharp': ApiRouteHandler<Record<string, unknown>, unknown, { topic: 'test.csharp'; data: never }>
     'stepC': EventHandler<never, { topic: 'pms.stepC.done'; data: { msg: string; timestamp: number } }>
     'stepB': EventHandler<never, { topic: 'pms.stepB.done'; data: { msg: string; timestamp: number } }>
     'CallOpenAiPython': EventHandler<{ message: string; assistantMessageId: string; threadId: string }, never>

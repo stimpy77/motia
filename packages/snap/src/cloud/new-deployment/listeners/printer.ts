@@ -1,7 +1,7 @@
-import colors from 'colors'
 import { Printer } from '@motiadev/core/dist/src/printer'
+import colors from 'colors'
+import type { BuildStepConfig } from '../../build/builder'
 import { CLIOutputManager } from '../../cli-output-manager'
-import { BuildStepConfig } from '../../build/builder'
 import { projectDir } from '../constants'
 
 const uploading = colors.yellow('➜ [UPLOADING]')
@@ -18,6 +18,8 @@ export class DeployPrinter {
       return colors.bold(colors.blue('Python'))
     } else if (language === 'ruby') {
       return colors.bold(colors.red('Ruby'))
+    } else if (language === 'csharp') {
+      return colors.bold(colors.magenta('C#'))
     }
     return colors.bold(colors.gray('Unknown'))
   }
@@ -29,6 +31,8 @@ export class DeployPrinter {
       return this.getLanguage('node')
     } else if (stepConfig.filePath.endsWith('.rb')) {
       return this.getLanguage('ruby')
+    } else if (stepConfig.filePath.endsWith('.cs')) {
+      return this.getLanguage('csharp')
     }
     return this.getLanguage('unknown')
   }

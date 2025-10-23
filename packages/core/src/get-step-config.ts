@@ -1,8 +1,8 @@
 import path from 'path'
-import { StepConfig } from './types'
 import { globalLogger } from './logger'
-import { StreamConfig } from './types-stream'
 import { ProcessManager } from './process-communication/process-manager'
+import type { StepConfig } from './types'
+import type { StreamConfig } from './types-stream'
 
 const getLanguageBasedRunner = (
   stepFilePath = '',
@@ -13,6 +13,7 @@ const getLanguageBasedRunner = (
 } => {
   const isPython = stepFilePath.endsWith('.py')
   const isRuby = stepFilePath.endsWith('.rb')
+  const isCSharp = stepFilePath.endsWith('.cs')
   const isNode = stepFilePath.endsWith('.js') || stepFilePath.endsWith('.ts')
 
   if (isPython) {
@@ -21,6 +22,9 @@ const getLanguageBasedRunner = (
   } else if (isRuby) {
     const rubyRunner = path.join(__dirname, 'ruby', 'get-config.rb')
     return { runner: rubyRunner, command: 'ruby', args: [] }
+  } else if (isCSharp) {
+    const csharpRunner = path.join(__dirname, 'csharp', 'bin', 'Release', 'net9.0', 'MotiaRunner.dll')
+    return { runner: csharpRunner, command: 'dotnet', args: [] }
   } else if (isNode) {
     if (process.env._MOTIA_TEST_MODE === 'true') {
       const nodeRunner = path.join(__dirname, 'node', 'get-config.ts')

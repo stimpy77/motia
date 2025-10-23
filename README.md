@@ -15,7 +15,7 @@
   <strong>🔥 The Unified Backend Framework That Eliminates Runtime Fragmentation 🔥</strong>
 </p>
 <p align="center">
-  <em>APIs, background jobs, workflows, and AI agents in one system. JavaScript, TypeScript, Python, and more in one codebase.</em>
+  <em>APIs, background jobs, queueing, streaming, states, workflows, AI agents, observability, scaling, and deployment all in one system. JavaScript, TypeScript, Python, C#, and more in a single core primitive</em>
 </p>
 
 <p align="center">
@@ -216,10 +216,23 @@ npx motia dev # ➜ http://localhost:3000
 - ✅ Multi-language support
 - ✅ Event-driven architecture
 - ✅ Zero configuration
+- ✅ AI development guides included (Cursor, OpenCode, Codex, and more)
 
 ![new-workbench](assets/new-workbench.png)
 
 > 📖 **[Full tutorial in our docs →](https://motia.dev/docs/getting-started/quick-start)**
+
+### 🤖 AI-Assisted Development
+
+Every Motia project includes detailed AI development guides that work with **any AI coding tool**:
+
+- **[Cursor IDE](https://cursor.sh/)** - Optimized `.mdc` rules with context-aware suggestions
+- **[OpenCode](https://opencode.ai/)**, **[Codex (OpenAI)](https://openai.com/index/introducing-codex/)** - Full support via `AGENTS.md` standard
+- **Aider, Jules, Factory, Amp, GitHub Copilot** - Compatible with [AGENTS.md format](https://agents.md/) (used by 20k+ projects)
+
+The guides include patterns for API endpoints, background tasks, state management, real-time streaming, and complete architecture blueprints.
+
+> 🤖 **[Learn more about AI development support →](https://motia.dev/docs/ai-development-guide)**
 
 ## 🎯 Step Types
 
@@ -278,6 +291,7 @@ A complete chess platform benchmarking LLM performance with real-time evaluation
 | **TypeScript** | ✅ Stable |
 | **Python** | ✅ Stable |
 | **Ruby** | 🚧 Beta |
+| **C# (.NET 9)** | 🚧 Beta |
 | **Go** | 🔄 Soon |
 
 ## 📚 Resources

@@ -1,11 +1,11 @@
-import path from 'path'
 import fs from 'fs'
-import { executeCommand } from './utils/execute-command'
-import { activatePythonVenv } from './utils/activate-python-env'
-import { installLambdaPythonPackages } from './utils/install-lambda-python-packages'
+import path from 'path'
 import { getStepFiles } from './generate-locked-data'
-import { getPythonCommand } from './utils/python-version-utils'
+import { activatePythonVenv } from './utils/activate-python-env'
 import { ensureUvInstalled } from './utils/ensure-uv'
+import { executeCommand } from './utils/execute-command'
+import { installLambdaPythonPackages } from './utils/install-lambda-python-packages'
+import { getPythonCommand } from './utils/python-version-utils'
 
 interface InstallConfig {
   isVerbose?: boolean
@@ -70,12 +70,36 @@ export const pythonInstall = async ({
   }
 }
 
+const csharpInstall = async (baseDir: string): Promise<void> => {
+  console.log('🔧 Checking .NET SDK installation...')
+
+  try {
+    const { execSync } = require('child_process')
+    const dotnetVersion = execSync('dotnet --version', { encoding: 'utf-8' }).trim()
+    console.log(`✅ .NET SDK detected: ${dotnetVersion}`)
+
+    // Check if .NET 9 is installed
+    if (!dotnetVersion.startsWith('9.')) {
+      console.warn('⚠️  Warning: .NET 9 is recommended for C# steps. You have version', dotnetVersion)
+      console.warn('   Download .NET 9 from: https://dotnet.microsoft.com/download/dotnet/9.0')
+    }
+  } catch (error) {
+    console.error('❌ .NET SDK not found!')
+    console.error('   Please install .NET 9 SDK from: https://dotnet.microsoft.com/download/dotnet/9.0')
+    process.exit(1)
+  }
+}
+
 export const install = async ({ isVerbose = false, pythonVersion = '3.13' }: InstallConfig): Promise<void> => {
   const baseDir = process.cwd()
 
   const steps = getStepFiles(baseDir)
   if (steps.some((file) => file.endsWith('.py'))) {
     await pythonInstall({ baseDir, isVerbose, pythonVersion })
+  }
+
+  if (steps.some((file) => file.endsWith('.cs'))) {
+    await csharpInstall(baseDir)
   }
 
   console.info('✅ Installation completed successfully!')
